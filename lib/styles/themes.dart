@@ -4,7 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 ThemeData light = ThemeData(
   scaffoldBackgroundColor: Colors.white,
-  appBarTheme: AppBarTheme(
+  appBarTheme:  AppBarTheme(
     color: Colors.white,
     elevation: 0,
     systemOverlayStyle: SystemUiOverlayStyle(
@@ -13,13 +13,27 @@ ThemeData light = ThemeData(
     ),
     titleTextStyle: TextStyle(
       color: Colors.black,
-      fontWeight: FontWeight.bold,
-      fontSize: 25.0,
+       fontFamily: 'Jannah',
+    fontSize: 15
     ),
-    iconTheme: IconThemeData(
+
+     iconTheme: IconThemeData(
       color: Colors.black,
     ),
+
   ),
+
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: Colors.deepOrange,
+    ),
+    textTheme: TextTheme(
+       button: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 25,
+        fontFamily: 'Jannah',
+      )
+    ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     type: BottomNavigationBarType.shifting,
     selectedItemColor: Colors.deepOrange,
@@ -39,6 +53,7 @@ ThemeData dark = ThemeData(
         color: Colors.white,
         fontWeight: FontWeight.bold,
         fontSize: 25.0,
+        fontFamily: 'Jannah',
       ),
       iconTheme: IconThemeData(
         color: Colors.white,
@@ -55,5 +70,7 @@ ThemeData dark = ThemeData(
         color: Colors.white,
         fontWeight: FontWeight.bold,
         fontSize: 18,
+        fontFamily: 'Jannah',
+
       ),
     ));
