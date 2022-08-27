@@ -4,7 +4,41 @@ import 'package:shop_app/models/boardingmodel.dart';
 
 import '../../modules/web_view.dart';
 
-Widget myDivider() => Padding(
+Widget defualtButton({
+  double width = double.infinity,
+  Color color = Colors.blue,
+  required Function() test,
+  required String text,
+}) =>
+    Container(
+      width: width,
+      color: color,
+      child: MaterialButton(
+        onPressed: test,
+        child: Text(
+          "$text",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+
+Widget defaultTextButton
+(
+{
+  required Function() onPressed,
+  required String text
+
+}
+)
+=>
+TextButton
+(
+onPressed: onPressed, child: Text(text));
+
+Widget myDivider() =>
+    Padding(
       padding: const EdgeInsetsDirectional.only(
         start: 20.0,
       ),
@@ -15,7 +49,8 @@ Widget myDivider() => Padding(
       ),
     );
 
-Widget buildArticleItem(article, context) => InkWell(
+Widget buildArticleItem(article, context) =>
+    InkWell(
       onTap: () {
         navigateTo(
           context,
@@ -52,7 +87,10 @@ Widget buildArticleItem(article, context) => InkWell(
                     Expanded(
                       child: Text(
                         '${article['title']}',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyText1,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -78,12 +116,14 @@ Widget buildArticleItem(article, context) => InkWell(
 Widget articleBuilder(list, BuildContext context, {bool isSearch = false}) =>
     ConditionalBuilder(
       condition: list.length > 0,
-      builder: (context) => ListView.separated(
-        physics: BouncingScrollPhysics(),
-        itemBuilder: (context, index) => buildArticleItem(list[index], context),
-        separatorBuilder: (context, index) => myDivider(),
-        itemCount: list.length,
-      ),
+      builder: (context) =>
+          ListView.separated(
+            physics: BouncingScrollPhysics(),
+            itemBuilder: (context, index) =>
+                buildArticleItem(list[index], context),
+            separatorBuilder: (context, index) => myDivider(),
+            itemCount: list.length,
+          ),
       fallback: (context) => Center(child: CircularProgressIndicator()),
     );
 
@@ -119,20 +159,23 @@ Widget defualtInput({
       ),
     );
 
-void navigateTo(context, widget) => Navigator.push(
+void navigateTo(context, widget) =>
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => widget,
       ),
     );
 
-void naviagteToAndReplace(context, widget) => Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (context) => widget,
-    ));
+void naviagteToAndReplace(context, widget) =>
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => widget,
+        ));
 
-Widget buildBoardingItem(BoardingModel boarding) => Column(
+Widget buildBoardingItem(BoardingModel boarding) =>
+    Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(

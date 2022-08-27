@@ -26,11 +26,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => AppCubit()
-        ..getBusniess()
-        ..getScience()
-        ..getSports()
-        ..darkMode(fromshared: isDark),
-      child: BlocConsumer<AppCubit, NewsStates>(
+      ,
+      child: BlocConsumer<AppCubit, ShopStates>(
         listener: (context, state) {},
         builder: (context, state) {
           // AppCubit cubit = AppCubit.get(context);

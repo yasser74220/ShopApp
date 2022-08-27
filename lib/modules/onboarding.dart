@@ -35,14 +35,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0,0,20,0),
-            child: TextButton(
-                onPressed: () {
-                  naviagteToAndReplace(context, ShopLogin());
-                },
-                child: Text(
-                  "SKIP",
-                  style: TextStyle(color: Colors.deepOrange, fontSize: 18),
-                )),
+            child: defualtButton(test: () {
+              naviagteToAndReplace(context, ShopLogin());
+            }, text: 'SKIP'),
           )
         ],
       ),
