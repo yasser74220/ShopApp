@@ -83,6 +83,7 @@ class ShopLogin extends StatelessWidget {
                             naviagteToAndReplace(context, RegisterScreen());
                           },
                           text: 'Register'),
+
                     ],
                   ),
                 ],
