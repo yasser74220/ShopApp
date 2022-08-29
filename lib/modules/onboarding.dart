@@ -4,6 +4,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../models/boardingmodel.dart';
 import '../shared/components/components.dart';
+import '../shared/network/local/cache_helper.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -35,9 +36,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0,0,20,0),
-            child: defualtButton(test: () {
-              naviagteToAndReplace(context, ShopLogin());
-            }, text: 'SKIP'),
+            child: TextButton(
+                onPressed: () {
+                  submit();
+                },
+                child: Text(
+                  "SKIP",
+                  style: TextStyle(color: Colors.deepOrange, fontSize: 18),
+                ),
+    ),
           )
         ],
       ),
@@ -83,7 +90,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 FloatingActionButton(
                   onPressed: () {
                     if (isLast) {
-                      naviagteToAndReplace(context, ShopLogin());
+                      submit();
                     } else {
                       boardController.nextPage(
                           duration: Duration(milliseconds: 799),
@@ -98,5 +105,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         ),
       ),
     );
+  }
+  void submit() {
+    CacheHelper.setData(
+      key: 'onBoarding',
+      value: true,
+    ).then((value)
+    {
+      if (value) {
+        naviagteToAndReplace(
+          context,
+          ShopLogin(),
+        );
+      }
+    });
   }
 }
