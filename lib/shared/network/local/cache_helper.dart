@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -8,17 +10,33 @@ class CacheHelper {
   {
     sharedPreferences = await SharedPreferences.getInstance();
   }
+  static Future<bool> putBoolean({
+    required String key,
+    required bool value,
+  }) async {
+    return await sharedPreferences!.setBool(key, value);
+  }
 
-  static Future<bool> setBoolen({
+  static Future<bool> setData({
   required String key,
-    required bool value
+    required  value
 }) async{
-  return await   sharedPreferences!.setBool(key, value);
+    if (value is String) return sharedPreferences!.setString(key, value);
+    if (value is int) return sharedPreferences!.setInt(key, value);
+    if (value is bool) return sharedPreferences!.setBool(key, value);
+   return await   sharedPreferences!.setDouble(key, value);
 }
-static bool? getBoolen({
-  required String key
+static dynamic  getData({
+  required String  key
 }){
-    return sharedPreferences?.getBool(key);
+    return sharedPreferences!.get(key);
 }
 
+
+  static Future<bool> removeData({
+    required String key,
+  }) async
+  {
+    return await sharedPreferences!.remove(key);
+  }
 }

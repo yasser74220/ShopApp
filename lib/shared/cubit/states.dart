@@ -1,45 +1,29 @@
-abstract class NewsStates {
+import 'package:shop_app/modules/login.dart';
+
+import '../../models/loginmodel.dart';
+
+abstract class ShopLoginStates {
 
 }
 
-class AppInitialState extends NewsStates {
+class AppInitialState extends ShopLoginStates {
 
 }
-class AppBottomNavBarState extends NewsStates {
+class ShopLoginLoadingState extends ShopLoginStates {
 
 }
 
-class NewsGetBusinessSuccessState extends NewsStates{
+class ShopLoginSuccessState extends ShopLoginStates {
+  final ShopLoginModel loginModel;
+
+  ShopLoginSuccessState(this.loginModel);
 
 }
-class NewsGetBusinessErrorState extends NewsStates{
-  NewsGetBusinessErrorState(String error);
+class ShopLoginErrorState extends ShopLoginStates {
+  final String error;
+
+  ShopLoginErrorState(this.error);
+}
+class PasswordVisibility extends ShopLoginStates{
 
 }
-class NewsGetSportsSuccessState extends NewsStates{
-
-}
-class NewsGetSportsErrorState extends NewsStates{
-  NewsGetSportsErrorState(String error);
-
-}
-class NewsGetScienceSuccessState extends NewsStates{
-
-}
-class NewsGetScienceErrorState extends NewsStates{
-  NewsGetScienceErrorState(String error);
-
-}
-class NewDarkModeState extends NewsStates{
-
-}
- class NewsGetSearchLoadingState extends NewsStates{
-
- }
- class NewsGetSearchSuccessState extends NewsStates{
-
- }
- class NewsGetSearchErrorState extends NewsStates{
-  NewsGetSearchErrorState(String string);
-
- }

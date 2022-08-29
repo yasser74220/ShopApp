@@ -8,29 +8,53 @@ import 'package:shop_app/shared/network/local/cache_helper.dart';
 import 'package:shop_app/shared/network/remote/dio.dart';
 import 'package:shop_app/styles/themes.dart';
 
+import 'layout/shoplayout.dart';
+import 'modules/login.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   dioHelper.init();
   await CacheHelper.init();
 
-  bool? isDark = CacheHelper.getBoolen(key: 'isDark');
-  runApp(MyApp(isDark));}
+  Widget? widget;
+
+  bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
+  String? token = CacheHelper.getData(key: 'token');
+
+  if(onBoarding != null)
+  {
+    if(token != null) {
+      widget = ShopLayout();
+    } else {
+      widget = ShopLogin();
+    }
+  } else
+  {
+    widget = OnBoardingScreen();
+  }
+  bool? isDark = CacheHelper.getData(key: 'isDark');
+  runApp(MyApp(
+    isDark: isDark,
+    startWidget: widget,
+  ));
+}
 
 class MyApp extends StatelessWidget {
-   var isDark;
+  final bool? isDark;
+  final Widget? startWidget;
 
-  MyApp(this.isDark);
+  MyApp({
+      this.isDark,
+      this.startWidget,
+  });
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => AppCubit()
-        ..getBusniess()
-        ..getScience()
-        ..getSports()
-        ..darkMode(fromshared: isDark),
-      child: BlocConsumer<AppCubit, NewsStates>(
+      ,
+      child: BlocConsumer<AppCubit, ShopLoginStates>(
         listener: (context, state) {},
         builder: (context, state) {
           // AppCubit cubit = AppCubit.get(context);
@@ -41,7 +65,7 @@ class MyApp extends StatelessWidget {
             darkTheme: dark,
             themeMode: ThemeMode.light,
 
-            home:  OnBoardingScreen(),
+            home:  startWidget,
           );
         },
       ),
