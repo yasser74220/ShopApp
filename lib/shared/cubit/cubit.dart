@@ -4,8 +4,12 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/loginmodel.dart';
+import 'package:shop_app/modules/favorites.dart';
+import 'package:shop_app/modules/settings.dart';
 import 'package:shop_app/shared/network/end_points.dart';
 
+import '../../modules/categories.dart';
+import '../../modules/products.dart';
 import '../components/components.dart';
 import '../network/local/cache_helper.dart';
 import 'states.dart';
@@ -19,7 +23,17 @@ class AppCubit extends Cubit<ShopLoginStates> {
   IconData suffix = Icons.visibility;
   bool isPassword = true;
   ShopLoginModel? loginModel;
-
+  int currentIndex = 0;
+  void changeBottom(int index) {
+    currentIndex = index;
+    emit(ShopChangeBottomNavState());
+  }
+  List<Widget> screens = [
+    ProductsScreen(),
+    CategoriesScreen(),
+    FavoritesScreen(),
+    SettingScreen(),
+  ];
   void changePasswordVisibility(){
     isPassword = !isPassword;
 
