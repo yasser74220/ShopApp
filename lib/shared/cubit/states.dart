@@ -30,3 +30,12 @@ class PasswordVisibility extends ShopLoginStates{
 class ShopChangeBottomNavState extends ShopLoginStates{
 
 }
+class ShopLoadingHomeDataState extends ShopLoginStates{
+
+}
+class ShopSuccessHomeDataState extends ShopLoginStates{
+
+}
+class ShopErrorHomeDataState extends ShopLoginStates{
+
+}

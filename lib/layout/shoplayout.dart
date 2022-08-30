@@ -22,6 +22,7 @@ class ShopLayout extends StatelessWidget {
             title: Text(
               'Home',
             ),
+            actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
           ),
           bottomNavigationBar: BottomNavigationBar(
               items: [

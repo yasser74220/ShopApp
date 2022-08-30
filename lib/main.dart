@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/modules/onboarding.dart';
+import 'package:shop_app/shared/components/constant.dart';
 import 'package:shop_app/shared/cubit/cubit.dart';
 import 'package:shop_app/shared/cubit/observer.dart';
 import 'package:shop_app/shared/cubit/states.dart';
@@ -20,17 +21,15 @@ Future<void> main() async {
   Widget? widget;
 
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
-  String? token = CacheHelper.getData(key: 'token');
+  token = CacheHelper.getData(key: 'token');
 
-  if(onBoarding != null)
-  {
-    if(token != null) {
+  if (onBoarding != null) {
+    if (token != null) {
       widget = ShopLayout();
     } else {
       widget = ShopLogin();
     }
-  } else
-  {
+  } else {
     widget = OnBoardingScreen();
   }
   bool? isDark = CacheHelper.getData(key: 'isDark');
@@ -45,27 +44,28 @@ class MyApp extends StatelessWidget {
   final Widget? startWidget;
 
   MyApp({
-      this.isDark,
-      this.startWidget,
+    this.isDark,
+    this.startWidget,
   });
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => AppCubit()
-      ,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => AppCubit()..getHomeData(),
+        ),
+      ],
       child: BlocConsumer<AppCubit, ShopLoginStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          AppCubit cubit = AppCubit.get(context);
-
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: light,
             darkTheme: dark,
             themeMode: ThemeMode.light,
-
-            home:  startWidget,
+            home: startWidget,
           );
         },
       ),
