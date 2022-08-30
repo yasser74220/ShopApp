@@ -28,7 +28,7 @@ class HomeDataModel
 class BannerModel
 {
   int? id;
-  String? image;
+  String image = '';
 
   BannerModel.fromJson(Map<String, dynamic> json)
   {
