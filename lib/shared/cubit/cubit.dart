@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/models/loginmodel.dart';
 import 'package:shop_app/modules/favorites.dart';
 import 'package:shop_app/modules/settings.dart';
@@ -92,6 +93,25 @@ class AppCubit extends Cubit<ShopLoginStates> {
     {
       print(error.toString());
       emit(ShopErrorHomeDataState());
+    });
+  }
+
+  CategoriesModel? categoriesModel;
+  void getCategoriesData(){
+
+    dioHelper.getData(
+      path: GET_CATEGORIES,
+      token: token,
+    ).then((value)
+    {
+      categoriesModel = CategoriesModel.fromjson(value.data);
+
+
+      emit(ShopSuccessCategoriesDataState());
+    }).catchError((error)
+    {
+      print(error.toString());
+      emit(ShopErrorCategoriesDataState());
     });
   }
 }

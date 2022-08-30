@@ -39,3 +39,10 @@ class ShopSuccessHomeDataState extends ShopLoginStates{
 class ShopErrorHomeDataState extends ShopLoginStates{
 
 }
+
+class ShopSuccessCategoriesDataState extends ShopLoginStates{
+
+}
+class ShopErrorCategoriesDataState extends ShopLoginStates{
+
+}
