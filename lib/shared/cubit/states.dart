@@ -27,3 +27,6 @@ class ShopLoginErrorState extends ShopLoginStates {
 class PasswordVisibility extends ShopLoginStates{
 
 }
+class ShopChangeBottomNavState extends ShopLoginStates{
+
+}

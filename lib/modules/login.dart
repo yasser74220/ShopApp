@@ -20,10 +20,9 @@ class ShopLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => AppCubit(),
-
       child: BlocConsumer<AppCubit, ShopLoginStates>(
         listener: (context, state) {
-          if (state is ShopLoginSuccessState  ) {
+          if (state is ShopLoginSuccessState) {
             if (state.loginModel.status == true) {
               print(state.loginModel.message);
               print(state.loginModel.data!.token);
@@ -57,8 +56,7 @@ class ShopLogin extends StatelessWidget {
                       children: [
                         Text(
                           'LOGIN',
-                          style: Theme
-                              .of(context)
+                          style: Theme.of(context)
                               .textTheme
                               .headline5!
                               .copyWith(fontWeight: FontWeight.bold),
@@ -66,8 +64,7 @@ class ShopLogin extends StatelessWidget {
                         SizedBox(height: 10),
                         Text(
                           'login now to browse our hot offers',
-                          style: Theme
-                              .of(context)
+                          style: Theme.of(context)
                               .textTheme
                               .bodyText1
                               ?.copyWith(color: Colors.grey),
@@ -79,7 +76,8 @@ class ShopLogin extends StatelessWidget {
                           inputType: TextInputType.emailAddress,
                           validate: (value) {
                             if (value!.isEmpty) {
-                              return 'please enter your email address';                            }
+                              return 'please enter your email address';
+                            }
                           },
                           iconPre: Icons.email,
                         ),
@@ -87,13 +85,13 @@ class ShopLogin extends StatelessWidget {
                           height: 20,
                         ),
                         defualtInput(
-                          onSubmitted: (value) {
-                            if (formKey.currentState!.validate()){
-                              AppCubit.get(context).userLogin(
-                                  Email: EmailController.text,
-                                  Password: PasswordController.text);
-                            }
-                          },
+                            onSubmitted: (value) {
+                              if (formKey.currentState!.validate()) {
+                                AppCubit.get(context).userLogin(
+                                    Email: EmailController.text,
+                                    Password: PasswordController.text);
+                              }
+                            },
                             text: 'Password',
                             controller: PasswordController,
                             inputType: TextInputType.visiblePassword,
@@ -102,50 +100,42 @@ class ShopLogin extends StatelessWidget {
                                 return 'password is too short';
                               }
                             },
-
                             iconPre: Icons.password,
                             isPassword: AppCubit.get(context).isPassword,
                             issuffix: true,
                             iconSuff: AppCubit.get(context).suffix,
                             suffPressed: () {
-                            AppCubit.get(context).changePasswordVisibility();
-                            }
-
-                        ),
+                              AppCubit.get(context).changePasswordVisibility();
+                            }),
                         SizedBox(height: 15),
-
                         ConditionalBuilder(
                           condition: state is! ShopLoginLoadingState,
-                          builder: (context) =>
-                              defualtButton(
-
-                                test: ()
-                                {
-                                  if (formKey.currentState!.validate()){
-                                    AppCubit.get(context).userLogin(
-                                        Email: EmailController.text,
-                                        Password: PasswordController.text);
-                                  }
-
-                                },
-                                text: 'LOGIN',
-                              ),
+                          builder: (context) => defualtButton(
+                            test: () {
+                              if (formKey.currentState!.validate()) {
+                                AppCubit.get(context).userLogin(
+                                    Email: EmailController.text,
+                                    Password: PasswordController.text);
+                              }
+                            },
+                            text: 'LOGIN',
+                          ),
                           fallback: (context) =>
                               Center(child: CircularProgressIndicator()),
                         ),
-                        SizedBox(height: 15,),
+                        SizedBox(
+                          height: 15,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text('Don\'t have an account ? '),
                             defaultTextButton(
-
                                 onPressed: () {
                                   naviagteToAndReplace(
                                       context, ShopRegisterScreen());
                                 },
                                 text: 'Register'),
-
                           ],
                         ),
                       ],
@@ -156,7 +146,6 @@ class ShopLogin extends StatelessWidget {
             ),
           );
         },
-
       ),
     );
   }
