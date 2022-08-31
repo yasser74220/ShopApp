@@ -23,7 +23,7 @@ class dioHelper {
     dio?.options.headers ={
     'lang':lang,
     'Content-Type':'application/json',
-    'Authorization' : token??'',
+    'Authorization' : token,
   };
     return await dio!.get(
       path,
@@ -33,16 +33,16 @@ class dioHelper {
 
   static Future<Response> postData({
     required String path,
-      Map<String, dynamic>? query,
+    Map<String, dynamic>? query,
     required Map<String , dynamic> data,
     String lang = 'en',
-    String? Authorization,
+    String? token,
   }) async
   {
     dio?.options.headers ={
           'lang':lang,
           'Content-Type':'application/json',
-          'Authorization' : Authorization??'',
+          'Authorization' : token,
         };
 
     return await dio!.post(
