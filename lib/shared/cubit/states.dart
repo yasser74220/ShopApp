@@ -67,3 +67,24 @@ class ShopErrorGetFavoriteState extends ShopLoginStates{
 class ShopLoadingGetFavoritesState extends ShopLoginStates{
 
 }
+class ShopLoadingUserDataState extends ShopLoginStates {}
+
+class ShopSuccessUserDataState extends ShopLoginStates
+{
+  final ShopLoginModel loginModel;
+
+  ShopSuccessUserDataState(this.loginModel);
+}
+
+class ShopErrorUserDataState extends ShopLoginStates {}
+
+class ShopLoadingUpdateUserState extends ShopLoginStates {}
+
+class ShopSuccessUpdateUserState extends ShopLoginStates
+{
+  final ShopLoginModel loginModel;
+
+  ShopSuccessUpdateUserState(this.loginModel);
+}
+
+class ShopErrorUpdateUserState extends ShopLoginStates {}
