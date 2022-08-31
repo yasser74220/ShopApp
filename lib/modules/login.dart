@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/modules/register.dart';
 import 'package:shop_app/shared/components/components.dart';
+import 'package:shop_app/shared/components/constant.dart';
 import 'package:shop_app/shared/cubit/cubit.dart';
 import 'package:shop_app/shared/cubit/states.dart';
 
@@ -34,6 +35,7 @@ class ShopLogin extends StatelessWidget {
                 key: 'token',
                 value: state.loginModel.data!.token,
               ).then((value) {
+                 token = state.loginModel.data!.token;
                 naviagteToAndReplace(
                   context,
                   ShopLayout(),

@@ -168,4 +168,50 @@ class AppCubit extends Cubit<ShopLoginStates> {
       emit(ShopErrorGetFavoriteState());
     });
   }
+
+    ShopLoginModel? userModel;
+  void getUserData() {
+    emit(ShopLoadingUpdateUserState());
+
+    dioHelper
+        .getData(
+      path: PROFILE,
+      token: token,
+    )
+        .then((value) {
+      userModel = ShopLoginModel.fromJson(value.data);
+      print(userModel!.data!.name);
+
+      emit(ShopSuccessUpdateUserState(userModel!));
+    }).catchError((error) {
+      print(error.toString());
+      emit(ShopErrorUpdateUserState());
+    });
+  }
+  void updateUserData({
+    required String name,
+    required String email,
+    required String phone,
+  }) {
+    emit(ShopLoadingUpdateUserState());
+
+    dioHelper.putData(
+      url: UPDATE_PROFILE,
+      token: token,
+      data: {
+        'name': name,
+        'email': email,
+        'phone': phone,
+      },
+    ).then((value) {
+      userModel = ShopLoginModel.fromJson(value.data);
+      printFullText(userModel!.data!.name);
+
+      emit(ShopSuccessUpdateUserState(userModel!));
+    }).catchError((error) {
+      print(error.toString());
+      emit(ShopErrorUpdateUserState());
+    });
+  }
 }
+
