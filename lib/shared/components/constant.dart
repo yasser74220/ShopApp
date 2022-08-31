@@ -1,4 +1,6 @@
-String? token = '';
+import '../network/local/cache_helper.dart';
+
+String? token =  CacheHelper.getData(key: 'token');
 
 void printFullText(String? text)
 {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/models/home_model.dart';
+import 'package:shop_app/shared/components/components.dart';
 import 'package:shop_app/shared/cubit/cubit.dart';
 import 'package:shop_app/shared/cubit/states.dart';
 
@@ -13,19 +14,27 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, ShopLoginStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if( state is ShopSuccessChangeFavoriteState){
+          if(!state.model.status!){
+            showToast(text: state.model.message!, state: ToastStates.ERROR);
+          }
+        }
+      },
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: (AppCubit.get(context).homeModel != null && AppCubit.get(context).categoriesModel != null),
-          builder: (context) =>
-              productsBuilder(AppCubit.get(context).homeModel!,AppCubit.get(context).categoriesModel!),
+          condition: (AppCubit.get(context).homeModel != null &&
+              AppCubit.get(context).categoriesModel != null),
+          builder: (context) => productsBuilder(
+              AppCubit.get(context).homeModel!,
+              AppCubit.get(context).categoriesModel!,context),
           fallback: (context) => Center(child: CircularProgressIndicator()),
         );
       },
     );
   }
 
-  Widget buildCategoryItem(DataModel model  ) => Stack(
+  Widget buildCategoryItem(DataModel model) => Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           Image(
@@ -52,7 +61,8 @@ class ProductsScreen extends StatelessWidget {
         ],
       );
 
-  Widget productsBuilder(HomeModel? model , CategoriesModel? category) => SingleChildScrollView(
+  Widget productsBuilder(HomeModel? model, CategoriesModel? category,context) =>
+      SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +107,8 @@ class ProductsScreen extends StatelessWidget {
                     child: ListView.separated(
                         physics: BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => buildCategoryItem(category!.data!.data[index]),
+                        itemBuilder: (context, index) =>
+                            buildCategoryItem(category!.data!.data[index]),
                         separatorBuilder: (context, index) =>
                             SizedBox(width: 10.0),
                         itemCount: category!.data!.data.length),
@@ -125,7 +136,7 @@ class ProductsScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 children: List.generate(
                   model!.data!.products.length,
-                  (index) => buildGridProduct(model.data!.products[index]),
+                  (index) => buildGridProduct(model.data!.products[index],context),
                 ),
               ),
             ),
@@ -133,7 +144,7 @@ class ProductsScreen extends StatelessWidget {
         ),
       );
 
-  Widget buildGridProduct(ProductModel model) => Container(
+  Widget buildGridProduct(ProductModel model,context) => Container(
         color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,9 +203,19 @@ class ProductsScreen extends StatelessWidget {
                         ),
                       Spacer(),
                       IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {},
-                        icon: Icon(Icons.favorite_border, size: 20),
+                        onPressed: () {
+                          AppCubit.get(context).changeFavorites(model.id!);
+                          print(model.id);
+                        },
+                        icon: CircleAvatar(
+                          radius: 15,
+                          backgroundColor: AppCubit.get(context).favorites[model.id]! ? Colors.blue : Colors.grey,
+                          child: Icon(
+                            Icons.favorite_border,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ],
                   ),
