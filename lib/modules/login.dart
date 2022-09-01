@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/modules/register.dart';
+import 'package:shop_app/modules/Register/register.dart';
 import 'package:shop_app/shared/components/components.dart';
 import 'package:shop_app/shared/components/constant.dart';
 import 'package:shop_app/shared/cubit/cubit.dart';
