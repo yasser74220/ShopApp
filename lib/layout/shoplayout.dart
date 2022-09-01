@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/modules/SearchModule/search.dart';
 import 'package:shop_app/modules/login.dart';
 import 'package:shop_app/shared/components/components.dart';
 import 'package:shop_app/shared/cubit/cubit.dart';
@@ -22,7 +23,16 @@ class ShopLayout extends StatelessWidget {
             title: Text(
               'Home',
             ),
-            actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    navigateTo(
+                      context,
+                      SearchScreen(),
+                    );
+                  },
+                  icon: Icon(Icons.search))
+            ],
           ),
           bottomNavigationBar: BottomNavigationBar(
               items: [
